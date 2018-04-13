@@ -1,0 +1,422 @@
+no1
+#include <windows.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
+void myinit()
+{
+glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+gluOrtho2D(-3.0, 3.0, -3.0, 3.0);
+glMatrixMode(GL_MODELVIEW);
+glClearColor(0.0, 0.0, 0.0, 0.0);
+glColor3f(1.0, 0.0, 0.0);
+}
+
+void display(void)
+{
+/* bersihkan layar */
+glClear (GL_COLOR_BUFFER_BIT);
+glColor3f (0.0, 0.0, 1.0);
+float t = 0.0;
+glBegin(GL_POINTS);
+for(t = -1.0; t<=1.0; t+=0.01){
+/* x(t): 0.5 - t; y(t) = 1 + 2t */
+glVertex3f (0.5 - t, 1.0 + 2.0*t, 0.0);
+}
+glEnd();
+glFlush ();
+}
+void kunci(unsigned char key, int x, int y)
+{
+switch (key)
+{
+/* aplikasi berhenti ketika tombol q ditekan */
+case 27 :
+case 'q':
+exit(0);
+break;
+}
+glutPostRedisplay();
+}
+int main(int argc, char *argv[])
+{
+glutInitWindowSize(400,400);
+glutInitWindowPosition(100,100);
+glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
+glutCreateWindow("KURVA");
+glutDisplayFunc(display);
+glutKeyboardFunc(kunci);
+myinit();
+glutMainLoop();
+return 0;
+}
+no2
+#include <windows.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
+void myinit()
+{
+glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+gluOrtho2D(-3.0, 3.0, -3.0, 3.0);
+glMatrixMode(GL_MODELVIEW);
+glClearColor(0.0, 0.0, 0.0, 0.0);
+glColor3f(0.0, 0.0, 1.0);
+}
+
+void display(void)
+{
+/* bersihkan layar */
+glClear (GL_COLOR_BUFFER_BIT);
+
+glColor3f (0.0, 0.0, 1.0);
+glBegin(GL_LINES);
+glVertex2f(-3,0);
+glVertex2f(3,0);
+glVertex2f(0,-3);
+glVertex2f(0,3);
+glEnd();
+
+glPointSize(4);
+glColor3f (0.0, 0.0, 1.0);
+float t = 0.0;
+glBegin(GL_LINE_STRIP);
+for(t = -1.0; t<=1.0; t+=0.001){
+int a=2, b=0, c=-1;
+glVertex3f (2*(a*t*t) + b*t + c, t, 0.0);
+}
+glEnd();
+glFlush ();
+}
+void kunci(unsigned char key, int x, int y)
+{
+switch (key)
+{
+/* aplikasi berhenti ketika tombol q ditekan */
+case 27 :
+case 'q':
+exit(0);
+break;
+}
+glutPostRedisplay();
+}
+int main(int argc, char *argv[])
+{
+glutInitWindowSize(400,400);
+glutInitWindowPosition(100,100);
+glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
+glutCreateWindow("KURVA 2");
+glutDisplayFunc(display);
+glutKeyboardFunc(kunci);
+myinit();
+glutMainLoop();
+return 0;
+}
+no3
+#include<windows.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+#include <stdlib.h>
+
+void myinit()
+{
+glClearColor(0.0, 0.0, 0.0, 0.0);
+glColor3f(1.0, 0.0, 0.0);
+glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+gluOrtho2D(-13.0, 13.0, -13.0, 13.0);
+glMatrixMode(GL_MODELVIEW);
+}
+void display(void)
+{
+/* bersihkan layar */
+glClear (GL_COLOR_BUFFER_BIT);
+glColor3f (1.0, 0.0, 0.0);
+float t = 0.0;
+// f(x) = (x-3)(x-3)(x-1)(x)(x+2)(x+2)(x+3) / 14
+glBegin(GL_POINTS);
+for(t = -13.0; t<=13.0; t+=0.01){
+glVertex3f (t, (t-3)*(t-3)*(t-1)*(t)*(t+2)*(t+2)*(t+3)/14, 0.0);
+}
+glEnd();
+glBegin(GL_LINES);
+glVertex3f(-13.0,0.0,0.0);
+glVertex3f(13.0,0.0,0.0);
+glVertex3f(0.0,-13.0,0.0);
+glVertex3f(0.0,13.0,0.0);
+glEnd();
+glFlush ();
+}
+void kunci(unsigned char key, int x, int y)
+{
+switch (key)
+{
+/* aplikasi berhenti ketika tombol q ditekan */
+case 27 :
+case 'q':
+exit(0);
+break;
+}
+glutPostRedisplay();
+}
+int main(int argc, char *argv[])
+{
+glutInitWindowSize(400,400);
+glutInitWindowPosition(100,100);
+glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
+glutCreateWindow("KURVA 3");
+glutDisplayFunc(display);
+glutKeyboardFunc(kunci);
+myinit();
+glutMainLoop();
+return 0;
+}
+no4
+#include<windows.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+#include <stdlib.h>
+#include <Math.h>
+void myinit()
+{
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glColor3f(1.0, 0.0, 0.0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-1.0, 10.0, -2.0, 2.0);
+    glMatrixMode(GL_MODELVIEW);
+}
+void display(void)
+{
+/* bersihkan layar */
+glClear (GL_COLOR_BUFFER_BIT);
+glColor3f (0.0, 1.0, 1.0);
+float x = 0.0;
+glBegin(GL_POINTS);
+//perhitungan sudut di openGL menggunakan radian, bukan derajat
+for(x=0.0; x<=7.0; x+=0.01)
+{
+    //A Cos(Bx + C) + D
+glVertex2f(x,3.0*cos(4.0*x+0.5)+2.0);
+}
+glEnd();
+glBegin(GL_LINES);
+glVertex3f(-10.0,0.0,0.0);
+glVertex3f(10.0,0.0,0.0);
+glVertex3f(0.0,-10.0,0.0);
+glVertex3f(0.0,10.0,0.0);
+glEnd();
+glFlush ();
+}
+void kunci(unsigned char key, int x, int y)
+{
+switch (key)
+{
+/* aplikasi berhenti ketika tombol q ditekan */
+case 27 :
+case 'q':
+exit(0);
+break;
+}
+glutPostRedisplay();
+}
+int main(int argc, char *argv[])
+{
+glutInitWindowSize(400,400);
+glutInitWindowPosition(100,100);
+glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
+glutCreateWindow("KURVA 4");
+glutDisplayFunc(display);
+glutKeyboardFunc(kunci);
+myinit();
+glutMainLoop();
+return 0;
+}
+no5
+#include <windows.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
+//Supaya bisa menggunakan fungsi sin(), program perlu include Math.h
+#include <Math.h>
+void myinit(){
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(-10.0,10.0,-10.0,10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glClearColor(0.0,0.0,1.0,0.0);
+	glColor3f(0.0,1.0,1.0);
+}
+void display(void)
+{
+/* bersihkan layar */
+glClear (GL_COLOR_BUFFER_BIT);
+glPointSize(4);
+    float t = 0.0;
+   //kepala
+    glBegin(GL_POLYGON);
+    glColor3f (0.0, 1.0, 0.0);
+    for(t =0; t<=3.14; t+=0.01){
+        //x(t) = -1 + 2t; y(t) = 0
+        glVertex3f (4*cos(t),4*sin(t),0.0);
+    }
+    glEnd();
+    //badan
+    glBegin(GL_POLYGON);
+    glColor3f (0.0, 1.0, 0.0);
+    glVertex2f(-4.0,0.0);
+    glVertex2f(4.0,0.0);
+    glVertex2f(4.0,-4.0);
+    glVertex2f(-4.0,-4.0);
+    glEnd();
+
+    glColor3f(0.0,0.0,1.0);
+    for(float x=0; x<9; x+=1){
+
+    glBegin(GL_POLYGON);
+    glVertex2f(-4.0+x,-4.0);
+    glVertex2f(-3.0+x,-4.0);
+    glVertex2f(-3.5+x,-3.5);
+    glEnd();
+    }
+//hidung
+glColor3f (1.0, 1.0, 0.0);
+//float t = 0.0;
+glPointSize(1);
+glBegin(GL_POLYGON);
+for(t=0.0; t<=6.28; t+=0.1)
+{
+int a=-1.0, b=0, c=-0.9;
+glVertex2f(0.4*sin(t),a*0.8*cos(t)+ b*t + c);
+}
+glEnd();
+//mulut
+glColor3f (1.0, 0.0, 0.0);
+glBegin(GL_POLYGON);
+for(t = -1.01; t<=1.01; t+=0.05){
+int a=2, b=0, c=-3.5;
+glVertex3f (1.8*t, (a*t*t) + (b*t) + c, 0.0);
+}
+glEnd();
+//lidah
+glColor3f (0.0, 0.0, 0.0);
+glBegin(GL_POLYGON);
+for(t = -0.6; t<=0.6; t+=0.05){
+int a=2, b=0, c=-2.5;
+glVertex3f (1.5*t, (a*t*t) + (b*t) + c, 0.0);
+}
+glEnd();
+
+
+//mata kanan
+glTranslatef(0,2,0);
+    glRotatef(180,0,0,1);
+
+    glBegin(GL_POLYGON);
+    glColor3f(0.0,0.0,0.0);
+    for(t =0; t<=6.28; t+=0.01){
+        //x(t) = -1 + 2t; y(t) = 0
+        glVertex3f (-1.6+0.7*cos(t),1.0*sin(t)+1.0,0.0);
+    }
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3f(1.0,1.0,1.0);
+    for(t =0; t<=6.28; t+=0.01){
+        //x(t) = -1 + 2t; y(t) = 0
+        glVertex3f (-1.6+0.4*cos(t),0.4*sin(t)+1.0,0.0);
+    }
+    glEnd();
+    //mata kanan
+    glTranslatef(0,2,0);
+    glRotatef(180,0,0,1);
+
+    glBegin(GL_POLYGON);
+    glColor3f(0.0,0.0,0.0);
+    for(t =0; t<=6.28; t+=0.01){
+        //x(t) = -1 + 2t; y(t) = 0
+        glVertex3f (-1.6+0.7*cos(t),1.0*sin(t)+1.0,0.0);
+    }
+    glEnd();
+    //mata putih
+    glBegin(GL_POLYGON);
+    glColor3f(1.0,1.0,1.0);
+    for(t =0; t<=6.28; t+=0.01){
+        //x(t) = -1 + 2t; y(t) = 0
+        glVertex3f (-1.6+0.4*cos(t),0.4*sin(t)+1.0,0.0);
+    }
+    glEnd();
+
+//telinga kanan
+glColor3f (0.0, 1.0, 1.0);
+glBegin(GL_TRIANGLES);
+glVertex2f(4.0,1.5); //kanan bawah
+glVertex2f(2.0,2.5); //kiri bawah
+glVertex2f(4,3.9); //tengah atas
+glEnd();
+
+glColor3f (1.0, 0.0, 0.0);
+glBegin(GL_TRIANGLES);
+glVertex2f(3.5,1.8);
+glVertex2f(2.5,2.3);
+glVertex2f(3.5,3.0);
+glEnd();
+
+//telinga kanan
+glColor3f (0.0, 1.0, 1.0);
+glBegin(GL_TRIANGLES);
+glVertex2f(-4.0,1.5); //kanan bawah
+glVertex2f(-2.0,2.5); //kiri bawah
+glVertex2f(-4,3.9); //tengah atas
+glEnd();
+
+glColor3f (1.0, 0.0, 0.0);
+glBegin(GL_TRIANGLES);
+glVertex2f(-3.5,1.8);
+glVertex2f(-2.5,2.3);
+glVertex2f(-3.5,3.0);
+glEnd();
+
+glFlush ();
+}
+void kunci(unsigned char key, int x, int y)
+{
+switch (key)
+{
+/* aplikasi berhenti ketika tombol q ditekan */
+case 27 :
+case 'q':
+exit(0);
+break;
+}
+glutPostRedisplay();
+}
+int main(int argc, char *argv[])
+{
+glutInitWindowSize(600,600);
+glutInitWindowPosition(50,100);
+glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
+glutCreateWindow("BONEKA");
+glutDisplayFunc(display);
+glutKeyboardFunc(kunci);
+myinit();
+glutMainLoop();
+return 0;
+}

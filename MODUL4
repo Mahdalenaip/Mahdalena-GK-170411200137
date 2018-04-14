@@ -1,0 +1,337 @@
+NO1
+#include<windows.h>
+#include <GL/glut.h>
+#include <stdlib.h>
+void CheckerBoard (){
+glClearColor(1.0,1.0,0.0,0);
+glClear(GL_COLOR_BUFFER_BIT);
+glColor3f(0.0,0.0,1.0);
+//board baris ke 1 dari bawah
+
+glRotated(45, 0, 0, 1.0);
+glTranslated(10.0, 0.0, 0);
+glRecti(0,0, 10, 10);
+glTranslated(20.0, 0.0, 0);
+glRecti(0,0, 10, 10);
+glTranslated(20.0, 0.0, 0);
+glRecti(0,0, 10, 10);
+glTranslated(20.0, 0.0, 0);
+glRecti(0,0, 10, 10);
+int a;
+for (a=1; a<=7; a++){
+if (a%2==1) {
+//board baris genap dari ke 1 dr bwh
+glTranslated(-70.0, 10.0, 0);
+glRecti(0,0, 10, 10);
+glTranslated(20.0, 0.0, 0);
+glRecti(0,0, 10, 10);
+glTranslated(20.0, 0.0, 0);
+glRecti(0,0, 10, 10);
+glTranslated(20.0, 0.0, 0);
+glRecti(0,0, 10, 10);
+} else {
+//board baris ganjil dari ke 1 dr bwh
+glTranslated(-50.0, 10.0, 0);
+glRecti(0,0, 10, 10);
+glTranslated(20.0, 0.0, 0);
+glRecti(0,0, 10, 10);
+glTranslated(20.0, 0.0, 0);
+glRecti(0,0, 10, 10);
+glTranslated(20.0, 0.0, 0);
+glRecti(0,0, 10, 10);
+}
+}
+glFlush();
+}
+void myinit() {
+glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+gluOrtho2D(-25.0,25.0,25.0,85.0);
+glMatrixMode(GL_MODELVIEW);
+glClearColor(1.0,1.0,1.0,1.0);
+glColor3f(0.0,0.0,0.0);
+}
+int main(int argc, char* argv[]) {
+glutInit(&argc,argv);
+glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+glutInitWindowSize(500,500);
+glutInitWindowPosition(100,100);
+glutCreateWindow("CheckerBoard");
+glutDisplayFunc(CheckerBoard);
+myinit();
+glutMainLoop();
+return 0;
+}
+NO2
+#include <Windows.h>
+#include <GL/glut.h>
+#include <stdlib.h>
+#include <Math.h>
+void display()
+{
+    float a ,b = 0.0;
+    //kotak-kotak
+    glColor3f(0.0, 0.0, 1.0);
+    for (int i=0; i<11; i++)
+    {
+        glRecti(-5, 35, 5, 45);
+        glRotated(-30, 0, 0, 1);
+        glRecti(-5, 35, 5, 45);
+    }
+    //lingkaran
+     glColor3f(1,1,0);
+    glBegin(GL_LINE_LOOP);
+        for (float x=0; x<6.28; x+=0.01) {
+            glVertex2f(cos(x)*40.0+a, sin(x)*40.0+b);
+        }
+    glEnd();
+
+    glFlush();
+}
+void myinit()
+{
+    gluOrtho2D(-50, 50, -50, 50);
+}
+int main(int argc, char* argv[])
+{
+    glutInit(&argc,argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(500,500);
+    glutInitWindowPosition(100,100);
+    glutCreateWindow("Circle Rectangle");
+    glutDisplayFunc(display);
+    myinit();
+    glutMainLoop();
+    return 0;
+}
+NO3
+#include <Windows.h>
+#include <GL/glut.h>
+#include <stdlib.h>
+#include <Math.h>
+void display(void)
+{
+    float a,b = 0.0;
+glClear(GL_COLOR_BUFFER_BIT);
+    for(int i=0; i<12; i++){
+        glRotated(90,0,0,1);
+        glPushMatrix();
+        if((i)%2==1){
+            glColor3f(0.0,0.0,1.0);
+            glPushMatrix();
+                //glScalef(0.75,0.75,0);
+                glRecti(-35, -3, -26, 6 );
+            glPopMatrix();
+            glRecti(-30, 11, -21, 20 );
+            glPushMatrix();
+                glRecti(-18, 31, -9, 22 );
+            glPopMatrix();
+        }else{
+            glColor3f(0.0,0.0,1.0);
+            glRecti(-34, -3, -25, 6 );
+            glPushMatrix();
+                glRecti(-31, 12, -22, 21 );
+            glPopMatrix();
+            glRecti(-18, 21, -9, 30 );
+        }
+        glPopMatrix();
+    }
+    //lingkaran
+    glColor3f(1,1,0);
+    glBegin(GL_LINE_LOOP);
+        for (float x=0; x<6.28; x+=0.01) {
+            glVertex2f(cos(x)*30.0+a, sin(x)*30.0+b);
+        }
+    glEnd();
+
+    glFlush();
+}
+void myinit()
+{
+    gluOrtho2D(-40, 40, -40, 40);
+}
+int main(int argc, char* argv[])
+{
+    glutInit(&argc,argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(400,400);
+    glutInitWindowPosition(100,100);
+    glutCreateWindow("Circle Rectangle");
+    glutDisplayFunc(display);
+    myinit();
+    glutMainLoop();
+    return 0;
+}
+NO4
+#include <Windows.h>
+#include <GL/glut.h>
+#include <stdlib.h>
+#include <Math.h>
+void display()
+{
+ glClear(GL_COLOR_BUFFER_BIT);
+    for(int i=0; i<13; i++){
+        glRotated(30,0,0,1);
+        glPushMatrix();
+        if((i)%2==1){
+            glColor3f(0.0,0.0,1.0);
+            glRecti(-5, 35, 5, 45);
+
+        }else{
+            glScalef(0.75,0.75,0);
+            glRecti(-5, 58, 5, 48);
+        }
+        glPopMatrix();
+    }
+    //lingkaran
+    glColor3f(1.0,1.0,0.0);
+    glBegin(GL_LINE_STRIP);
+    for (float a=-40; a<=0; a+=0.01)
+    {
+        glVertex2f(40*cos(a), 40*sin(a));
+    }
+    glEnd();
+    glFlush();
+}
+
+void myinit()
+{
+    gluOrtho2D(-50, 50, -50, 50);
+}
+int main(int argc, char* argv[])
+{
+    glutInit(&argc,argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(500,500);
+    glutInitWindowPosition(100,100);
+    glutCreateWindow("Circle Rectangle");
+    glutDisplayFunc(display);
+    myinit();
+    glutMainLoop();
+    return 0;
+}
+NO5
+#include <Windows.h>
+#include <GL/glut.h>
+#include <stdlib.h>
+#include <Math.h>
+void display(void)
+{
+glClear(GL_COLOR_BUFFER_BIT);
+    for(int i=0; i<12; i++){
+        glRotated(90,0,0,1);
+        glPushMatrix();
+        if((i)%2==1){
+            glColor3f(0.0,0.0,1.0);
+            glPushMatrix();
+                glScalef(0.75,0.75,0);
+                glRecti(-44, -3, -35, 6 );
+            glPopMatrix();
+            glRecti(-30, 11, -21, 20 );
+            glPushMatrix();
+                glScalef(0.75,0.75,0);
+                glRecti(-24, 30, -15, 39 );
+            glPopMatrix();
+        }else{
+            glColor3f(0.0,0.0,1.0);
+            glRecti(-34, -3, -25, 6 );
+            glPushMatrix();
+                glScalef(0.75,0.75,0);
+                glRecti(-37, 18, -28, 27 );
+            glPopMatrix();
+            glRecti(-18, 21, -9, 30 );
+        }
+        glPopMatrix();
+    }
+    glBegin(GL_LINES);
+    glColor3f(1.0,1.0,0.0);
+    for(float a = -30; a<30; a+=0.1){
+        glVertex2f(30*sin(a), 30*cos(a));
+    }
+    glEnd();
+    glFlush();
+}
+void myinit()
+{
+    gluOrtho2D(-40, 40, -40, 40);
+}
+int main(int argc, char* argv[])
+{
+    glutInit(&argc,argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(500,500);
+    glutInitWindowPosition(100,100);
+    glutCreateWindow("Circle Rectangle");
+    glutDisplayFunc(display);
+    myinit();
+    glutMainLoop();
+    return 0;
+}
+NO6
+#include <windows.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+#include<math.h>
+void bulat(float a , float b){
+    glColor3f(0,0,0.8);
+    glBegin(GL_POLYGON);
+        for (float x=0; x<6.28; x+=0.01) {
+            glVertex2f(cos(x)*4.0+a, sin(x)*4.0+b);
+        }
+    glEnd();
+
+}
+
+void kelopak(float a , float b){
+glColor3f(1,1,1);
+glBegin(GL_POLYGON);
+glVertex3f (6.5+a,-1+b, 0.0);
+glColor3f(0,0,1);
+for(float t = -1.5; t<=2.5; t+=0.01){
+glVertex3f (a+t*t, b+t*5.0, 0.0);
+}
+for(float t = -1.5; t<=2.5; t+=0.01){
+glVertex3f (a+12.5-t*t, b+t*5.0, 0.0);
+}
+glEnd();
+}
+void display()
+{
+glClear(GL_COLOR_BUFFER_BIT);
+bulat(0.0,0.0);
+
+glTranslated(60,60,0);
+for (int a=0; a<=30; a++){
+glRotated(a*30,0,0,1);
+kelopak(-7.5,-20.0);
+glLoadIdentity();
+}
+glRotated(-180,1,0,0);
+glTranslated(-60,-60,0);
+
+glFlush();
+}
+void myinit()
+{
+glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+gluOrtho2D(-50.0,50.0,-50.0,50.0);
+glMatrixMode(GL_MODELVIEW);
+glClearColor(0.0,0.0,0.0,0.0);
+glColor3f(0.0,0.0,0.0);
+}
+int main(int argc, char* argv[])
+{
+glutInit(&argc,argv);
+glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+glutInitWindowSize(500,500);
+glutInitWindowPosition(100,100);
+glutCreateWindow("BUNGA");
+glutDisplayFunc(display);
+myinit();
+glutMainLoop();
+return 0;
+}

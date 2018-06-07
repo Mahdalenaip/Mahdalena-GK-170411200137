@@ -1,0 +1,1158 @@
+NO1
+#include <windows.h>
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#endif
+
+
+boolean diff = true, spec = true, amb = true;
+float theta = 0.0;
+
+void cube(){
+    //depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,0.0,1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glEnd();
+
+    //belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,0.0,-1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glEnd();
+
+    //kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1.0,0.0,0.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glEnd();
+
+    //kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glEnd();
+
+    //bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,-1.0,0.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glEnd();
+
+    //atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,1.0,0.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glEnd();
+}
+
+void number(int NUM){
+
+    glPushMatrix();
+    if(NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 1
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 2
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 3
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 4
+    }
+    glTranslatef(-2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 5
+    }
+    glTranslatef(-2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 6
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 7
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 8
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 6 || NUM == 8){
+        cube(); // 9
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 10
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 11
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 12
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 13
+    }
+    glPopMatrix();
+}
+
+void display(){
+    glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
+
+    glLoadIdentity();
+    glRotated(35, 1,1,1);
+
+    GLfloat mat_specular[] = { 0.7, 0.7, 0.7, 1.0 };
+    GLfloat mat_shininess[] = { 10.0 };
+    GLfloat mat_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+
+    glRotatef(theta, 0,1,0);
+
+    glTranslatef(-7,0,0);
+    glPushMatrix();
+    number(1);
+    glTranslatef(7,0,0);
+    number(0);
+    glTranslatef(7,0,0);
+    number(1);
+    glPopMatrix();
+
+    glFlush();
+}
+
+void reshape (int w, int h){
+    glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+    glMatrixMode (GL_PROJECTION);
+    glLoadIdentity();
+    if (w <= h)
+        glOrtho (-20.5, 20.5, -20.5*(GLfloat)h/(GLfloat)w, 20.5*(GLfloat)h/(GLfloat)w, - 20.0, 20.0);
+    else
+        glOrtho (-20.5*(GLfloat)w/(GLfloat)h, 20.5*(GLfloat)w/(GLfloat)h, -20.5, 20.5, -20.0, 20.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+ }
+
+void myinit(){
+    glClearColor (0.0, 0.0, 0.0, 0.0);
+    glColor3f(0.0, 0.0, 0.0);
+    glOrtho(-200.0,200.0,-200.0,200.0,200.0,-200.0);
+
+    GLfloat light_position_diff[] = { -1.0, 1.0, 1.0, 0.0 };
+    GLfloat diffuse_light[] = { 0.0, 0.0, 1.0, 1.0 };
+    GLfloat light_position_spec[] = { 1.0, 1.0, 1.0, 0.0 };
+    GLfloat specular_light[] = { 0.0, 1.0, 0.0, 1.0 };
+    GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
+
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position_diff);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
+    glLightfv(GL_LIGHT1, GL_POSITION, light_position_spec);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, specular_light);
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_DEPTH_TEST);
+    glShadeModel (GL_SMOOTH);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT1);
+}
+
+ void myIdle(){
+    theta +=0.03;
+    display();
+ }
+
+ void mykey(unsigned char key, int mouseX, int mouseY){
+    if (key=='1'){
+        if (amb == true){
+            GLfloat ambient_light[] = { 0.3, 0.3, 0.3, 1.0 };
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+            amb = false;
+        }
+        else{
+            GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+            amb = true;
+        }
+    }
+    if (key=='2'){
+        if (diff == true){
+            glDisable(GL_LIGHT0);
+            diff = false;
+        }
+        else{
+            glEnable(GL_LIGHT0);
+            diff = true;
+        }
+    }
+    if (key=='3'){
+        if (spec == true){
+            glDisable(GL_LIGHT1);
+            spec = false;
+        }
+        else{
+            glEnable(GL_LIGHT1);
+            spec = true;
+        }
+    }
+    display();
+ }
+
+int main(int argc, char* argv[]){
+	glutInit(&argc,argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(400,400);
+	glutInitWindowPosition(100,100);
+	glutCreateWindow("Lighting");
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
+	glutIdleFunc(myIdle);
+	glutKeyboardFunc(mykey);
+	myinit();
+	glutMainLoop();
+	return 0;
+}
+NO2
+#include <windows.h>
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#endif
+
+
+boolean diff = true, spec = true, amb = true;
+float theta = 0.0;
+
+void cube(){
+    //depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,0.0,1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glEnd();
+
+    //belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,0.0,-1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glEnd();
+
+    //kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1.0,0.0,0.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glEnd();
+
+    //kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glEnd();
+
+    //bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,-1.0,0.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glEnd();
+
+    //atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,1.0,0.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glEnd();
+}
+
+void number(int NUM){
+
+
+    glPushMatrix();
+    if(NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 1
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 2
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 3
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 4
+    }
+    glTranslatef(-2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 5
+    }
+    glTranslatef(-2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 6
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 7
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 8
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 6 || NUM == 8){
+        cube(); // 9
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 10
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 11
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 12
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 13
+    }
+    glPopMatrix();
+}
+
+void display(){
+    glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
+
+    glLoadIdentity();
+    glRotated(35, 1,1,1);
+    //glRotated(-35, 1,0,0);
+
+    GLfloat mat_specular[] = { 0.7, 0.7, 0.7, 1.0 };
+    GLfloat mat_shininess[] = { 10.0 };
+    GLfloat mat_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+
+    glRotatef(theta, 0,1,0);
+
+    glTranslatef(-7,0,0);
+    glPushMatrix();
+    number(1);
+    glTranslatef(7,0,0);
+    number(0);
+    glTranslatef(7,0,0);
+    number(1);
+    glPopMatrix();
+
+    glFlush();
+}
+
+void reshape (int w, int h){
+    glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+    glMatrixMode (GL_PROJECTION);
+    glLoadIdentity();
+    if (w <= h)
+        glOrtho (-20.5, 20.5, -20.5*(GLfloat)h/(GLfloat)w, 20.5*(GLfloat)h/(GLfloat)w, - 20.0, 20.0);
+    else
+        glOrtho (-20.5*(GLfloat)w/(GLfloat)h, 20.5*(GLfloat)w/(GLfloat)h, -20.5, 20.5, -20.0, 20.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+ }
+
+void myinit(){
+    glClearColor (0.0, 0.0, 0.0, 0.0);
+    glColor3f(0.0, 0.0, 0.0);
+
+    GLfloat light_position_diff0[] = { -1.0, 1.0, 1.0, 0.0 };
+    GLfloat diffuse_light0[] = { 0.0, 0.0, 1.0, 1.0 };
+    GLfloat light_position_spec1[] = { 1.0, 1.0, 1.0, 0.0 };
+    GLfloat specular_light1[] = { 0.0, 1.0, 0.0, 1.0 };
+
+    GLfloat light_position_diff2[] = { 0.0, 1.0, 1.0, 0.0 };
+    GLfloat diffuse_light2[] = { 1.0, 0.0, 0.0, 1.0 };
+    GLfloat light_position_spec3[] = { 1.0, 0.0, 1.0, 0.0 };
+    GLfloat specular_light3[] = { 0.5, 0.5, 0.0, 1.0 };
+    GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
+
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position_diff0);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light0);
+    glLightfv(GL_LIGHT1, GL_POSITION, light_position_spec1);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, specular_light1);
+
+    glLightfv(GL_LIGHT2, GL_POSITION, light_position_diff2);
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, diffuse_light2);
+    glLightfv(GL_LIGHT3, GL_POSITION, light_position_spec3);
+    glLightfv(GL_LIGHT3, GL_SPECULAR, specular_light3);
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_DEPTH_TEST);
+    glShadeModel (GL_SMOOTH);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT1);
+    glEnable(GL_LIGHT2);
+    glEnable(GL_LIGHT3);
+}
+
+ void myIdle(){
+    theta +=0.03;
+    display();
+ }
+
+ void mykey(unsigned char key, int mouseX, int mouseY){
+    if (key=='1'){
+        if (amb == true){
+            GLfloat ambient_light[] = { 0.3, 0.3, 0.3, 1.0 };
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+            amb = false;
+        }
+        else{
+            GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+            amb = true;
+        }
+    }
+    if (key=='2'){
+        if (diff == true){
+            glDisable(GL_LIGHT0);
+            diff = false;
+        }
+        else{
+            glEnable(GL_LIGHT0);
+            diff = true;
+        }
+    }
+    if (key=='3'){
+        if (spec == true){
+            glDisable(GL_LIGHT1);
+            spec = false;
+        }
+        else{
+            glEnable(GL_LIGHT1);
+            spec = true;
+        }
+    }
+    display();
+ }
+
+int main(int argc, char* argv[]){
+	glutInit(&argc,argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(400,400);
+	glutInitWindowPosition(100,100);
+	glutCreateWindow("Lighting");
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
+	glutIdleFunc(myIdle);
+	glutKeyboardFunc(mykey);
+	myinit();
+	glutMainLoop();
+	return 0;
+}
+NO3
+#include <windows.h>
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#endif
+
+
+boolean diff = true, spec = true, amb = true;
+static GLfloat RotateNIMx, RotateNIMy, RotateNIMz;
+int Mousebtn;
+
+void cube(){
+    //depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,0.0,1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glEnd();
+
+    //belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,0.0,-1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glEnd();
+
+    //kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1.0,0.0,0.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glEnd();
+
+    //kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glEnd();
+
+    //bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,-1.0,0.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glEnd();
+
+    //atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,1.0,0.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glEnd();
+}
+
+void number(int NUM){
+//    < Pattern >
+//      6  5  4
+//      7     3
+//      8  1  2
+//      9     13
+//      10 11 12
+
+    glPushMatrix();
+    if(NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 1
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 2
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 3
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 4
+    }
+    glTranslatef(-2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 5
+    }
+    glTranslatef(-2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 6
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 7
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 8
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 6 || NUM == 8){
+        cube(); // 9
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 10
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 11
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 12
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 13
+    }
+    glPopMatrix();
+}
+
+void XspinDisplay(void){
+    RotateNIMx = RotateNIMx - 0.05;
+    if (RotateNIMx < 0.00){
+        RotateNIMx = RotateNIMx + 360.0;
+    }
+    glutPostRedisplay();
+}
+void YspinDisplay(void){
+    RotateNIMy = RotateNIMy - 0.05;
+    if (RotateNIMy < 0.00){
+        RotateNIMy = RotateNIMy + 360.0;
+    }
+    glutPostRedisplay();
+}
+void ZspinDisplay(void){
+    RotateNIMz = RotateNIMz - 0.05;
+    if (RotateNIMz < 0.00){
+        RotateNIMz = RotateNIMz + 360.0;
+    }
+    glutPostRedisplay();
+}
+void display(){
+    glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
+
+    if(Mousebtn == 0){
+        glutIdleFunc(XspinDisplay);
+    }else if(Mousebtn == 1){
+        glutIdleFunc(YspinDisplay);
+    }else if(Mousebtn == 2){
+        glutIdleFunc(ZspinDisplay);
+    }
+
+    //glRotated(-35, 1,0,0);
+
+    GLfloat mat_specular[] = { 0.7, 0.7, 0.7, 1.0 };
+    GLfloat mat_shininess[] = { 10.0 };
+    GLfloat mat_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+
+    glPushMatrix();
+        glRotatef(RotateNIMx,1,0,0);
+        glRotatef(RotateNIMy,0,1,0);
+        glRotatef(RotateNIMz,0,0,1);
+            glTranslatef(-7,0,0);
+            glPushMatrix();
+            number(1);
+            glTranslatef(7,0,0);
+            number(0);
+            glTranslatef(7,0,0);
+            number(1);
+    glPopMatrix();
+
+    glPopMatrix();
+
+    glFlush();
+}
+
+void reshape (int w, int h){
+    glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+    glMatrixMode (GL_PROJECTION);
+    glLoadIdentity();
+    if (w <= h)
+        glOrtho (-20.5, 20.5, -20.5*(GLfloat)h/(GLfloat)w, 20.5*(GLfloat)h/(GLfloat)w, - 20.0, 20.0);
+    else
+        glOrtho (-20.5*(GLfloat)w/(GLfloat)h, 20.5*(GLfloat)w/(GLfloat)h, -20.5, 20.5, -20.0, 20.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+	glRotated(35, 1,1,1);
+ }
+
+void myinit(){
+    glClearColor (0.0, 0.0, 0.0, 0.0);
+    glColor3f(0.0, 0.0, 0.0);
+
+    GLfloat light_position_diff0[] = { -1.0, 1.0, 1.0, 0.0 };
+    GLfloat diffuse_light0[] = { 0.0, 0.0, 1.0, 1.0 };
+    GLfloat light_position_spec1[] = { 1.0, 1.0, 1.0, 0.0 };
+    GLfloat specular_light1[] = { 0.0, 1.0, 0.0, 1.0 };
+
+    GLfloat light_position_diff2[] = { 0.0, 1.0, 1.0, 0.0 };
+    GLfloat diffuse_light2[] = { 1.0, 0.0, 0.0, 1.0 };
+    GLfloat light_position_spec3[] = { 1.0, 0.0, 1.0, 0.0 };
+    GLfloat specular_light3[] = { 0.5, 0.5, 0.0, 1.0 };
+    GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
+
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position_diff0);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light0);
+    glLightfv(GL_LIGHT1, GL_POSITION, light_position_spec1);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, specular_light1);
+
+    glLightfv(GL_LIGHT2, GL_POSITION, light_position_diff2);
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, diffuse_light2);
+    glLightfv(GL_LIGHT3, GL_POSITION, light_position_spec3);
+    glLightfv(GL_LIGHT3, GL_SPECULAR, specular_light3);
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_DEPTH_TEST);
+    glShadeModel (GL_SMOOTH);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT1);
+    glEnable(GL_LIGHT2);
+    glEnable(GL_LIGHT3);
+
+	glutIdleFunc(XspinDisplay);
+}
+
+
+ void mykey(unsigned char key, int mouseX, int mouseY){
+    if (key=='1'){
+        if (amb == true){
+            GLfloat ambient_light[] = { 0.3, 0.3, 0.3, 1.0 };
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+            amb = false;
+        }
+        else{
+            GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+            amb = true;
+        }
+    }
+    if (key=='2'){
+        if (diff == true){
+            glDisable(GL_LIGHT0);
+            diff = false;
+        }
+        else{
+            glEnable(GL_LIGHT0);
+            diff = true;
+        }
+    }
+    if (key=='3'){
+        if (spec == true){
+            glDisable(GL_LIGHT1);
+            spec = false;
+        }
+        else{
+            glEnable(GL_LIGHT1);
+            spec = true;
+        }
+    }
+    display();
+ }
+void mouse(int button, int state, int x, int y){
+    switch (button){
+        case GLUT_LEFT_BUTTON:
+            if (state == GLUT_DOWN){
+                Mousebtn = 0;
+                glutIdleFunc(XspinDisplay);
+            }
+            break;
+        case GLUT_MIDDLE_BUTTON:
+            if (state == GLUT_DOWN){
+                Mousebtn = 1;
+                glutIdleFunc(YspinDisplay);
+            }
+            break;
+        case GLUT_RIGHT_BUTTON:
+            if (state == GLUT_DOWN){
+                Mousebtn = 2;
+                glutIdleFunc(ZspinDisplay);
+            }
+            break;
+        default:
+            glutIdleFunc(NULL);
+            break;
+    }
+ }
+int main(int argc, char* argv[]){
+	glutInit(&argc,argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(400,400);
+	glutInitWindowPosition(100,100);
+	glutCreateWindow("Lighting");
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
+	glutKeyboardFunc(mykey);
+    glutMouseFunc(mouse);
+	myinit();
+	glutMainLoop();
+	return 0;
+}
+NO4
+#include <windows.h>
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#endif
+
+
+boolean diff = true, spec = true, amb = true;
+float multipliers = 1.0;
+static GLfloat RotateNIMx, RotateNIMy, RotateNIMz;
+int Mousebtn;
+
+void cube(){
+    //depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,0.0,1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glEnd();
+
+    //belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,0.0,-1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glEnd();
+
+    //kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1.0,0.0,0.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glEnd();
+
+    //kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glEnd();
+
+    //bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,-1.0,0.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glEnd();
+
+    //atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0,1.0,0.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glEnd();
+}
+
+void number(int NUM){
+
+    glPushMatrix();
+    if(NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 1
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 2
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 3
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 4
+    }
+    glTranslatef(-2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 5
+    }
+    glTranslatef(-2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 6
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 7
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 8
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 6 || NUM == 8){
+        cube(); // 9
+    }
+    glTranslatef(0,-2,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 10
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 2 || NUM == 3 || NUM == 5 || NUM == 6 || NUM == 8 || NUM == 9){
+        cube(); // 11
+    }
+    glTranslatef(2,0,0);
+    if(NUM == 0 || NUM == 1 || NUM == 2 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 12
+    }
+    glTranslatef(0,2,0);
+    if(NUM == 0 || NUM == 1 || NUM == 3 || NUM == 4 || NUM == 5 || NUM == 6 || NUM == 7 || NUM == 8 || NUM == 9){
+        cube(); // 13
+    }
+    glPopMatrix();
+}
+
+void XspinDisplay(void){
+    RotateNIMx = RotateNIMx - 0.05*multipliers;
+    if (RotateNIMx < 0.00){
+        RotateNIMx = RotateNIMx + 360.0;
+    }
+    glutPostRedisplay();
+}
+void YspinDisplay(void){
+    RotateNIMy = RotateNIMy - 0.05*multipliers;
+    if (RotateNIMy < 0.00){
+        RotateNIMy = RotateNIMy + 360.0;
+    }
+    glutPostRedisplay();
+}
+void ZspinDisplay(void){
+    RotateNIMz = RotateNIMz - 0.05*multipliers;
+    if (RotateNIMz < 0.00){
+        RotateNIMz = RotateNIMz + 360.0;
+    }
+    glutPostRedisplay();
+}
+void display(){
+    glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
+
+    if(Mousebtn == 0){
+        glutIdleFunc(XspinDisplay);
+    }else if(Mousebtn == 1){
+        glutIdleFunc(YspinDisplay);
+    }else if(Mousebtn == 2){
+        glutIdleFunc(ZspinDisplay);
+    }
+
+    //glRotated(-35, 1,0,0);
+
+    GLfloat mat_specular[] = { 0.7, 0.7, 0.7, 1.0 };
+    GLfloat mat_shininess[] = { 10.0 };
+    GLfloat mat_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+
+    glPushMatrix();
+        glRotatef(RotateNIMx,1,0,0);
+        glRotatef(RotateNIMy,0,1,0);
+        glRotatef(RotateNIMz,0,0,1);
+            glTranslatef(-7,0,0);
+            glPushMatrix();
+            number(1);
+            glTranslatef(7,0,0);
+            number(0);
+            glTranslatef(7,0,0);
+            number(1);
+    glPopMatrix();
+
+    glPopMatrix();
+
+    glFlush();
+}
+
+void reshape (int w, int h){
+    glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+    glMatrixMode (GL_PROJECTION);
+    glLoadIdentity();
+    if (w <= h)
+        glOrtho (-20.5, 20.5, -20.5*(GLfloat)h/(GLfloat)w, 20.5*(GLfloat)h/(GLfloat)w, - 20.0, 20.0);
+    else
+        glOrtho (-20.5*(GLfloat)w/(GLfloat)h, 20.5*(GLfloat)w/(GLfloat)h, -20.5, 20.5, -20.0, 20.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+	glRotated(35, 1,1,1);
+ }
+
+void myinit(){
+    glClearColor (0.0, 0.0, 0.0, 0.0);
+    glColor3f(0.0, 0.0, 0.0);
+
+    GLfloat light_position_diff0[] = { -1.0, 1.0, 1.0, 0.0 };
+    GLfloat diffuse_light0[] = { 0.0, 0.0, 1.0, 1.0 };
+    GLfloat light_position_spec1[] = { 1.0, 1.0, 1.0, 0.0 };
+    GLfloat specular_light1[] = { 0.0, 1.0, 0.0, 1.0 };
+
+    GLfloat light_position_diff2[] = { 0.0, 1.0, 1.0, 0.0 };
+    GLfloat diffuse_light2[] = { 1.0, 0.0, 0.0, 1.0 };
+    GLfloat light_position_spec3[] = { 1.0, 0.0, 1.0, 0.0 };
+    GLfloat specular_light3[] = { 0.5, 0.5, 0.0, 1.0 };
+    GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
+
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position_diff0);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light0);
+    glLightfv(GL_LIGHT1, GL_POSITION, light_position_spec1);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, specular_light1);
+
+    glLightfv(GL_LIGHT2, GL_POSITION, light_position_diff2);
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, diffuse_light2);
+    glLightfv(GL_LIGHT3, GL_POSITION, light_position_spec3);
+    glLightfv(GL_LIGHT3, GL_SPECULAR, specular_light3);
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_DEPTH_TEST);
+    glShadeModel (GL_SMOOTH);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT1);
+    glEnable(GL_LIGHT2);
+    glEnable(GL_LIGHT3);
+
+	glutIdleFunc(XspinDisplay);
+}
+
+
+ void mykey(unsigned char key, int mouseX, int mouseY){
+    if (key=='1'){
+        if (amb == true){
+            GLfloat ambient_light[] = { 0.3, 0.3, 0.3, 1.0 };
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+            amb = false;
+        }
+        else{
+            GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+            amb = true;
+        }
+    }
+    if (key=='2'){
+        if (diff == true){
+            glDisable(GL_LIGHT0);
+            diff = false;
+        }
+        else{
+            glEnable(GL_LIGHT0);
+            diff = true;
+        }
+    }
+    if (key=='3'){
+        if (spec == true){
+            glDisable(GL_LIGHT1);
+            spec = false;
+        }
+        else{
+            glEnable(GL_LIGHT1);
+            spec = true;
+        }
+    }
+    if (key=='u'){
+        glScalef(0.75,0.75,0.75);
+    }
+    if (key=='U'){
+        glScalef(1.5,1.5,1.5);
+    }
+    if (key=='v'){
+        multipliers = multipliers*0.5;
+    }
+    if (key=='V'){
+        multipliers = multipliers*2.0;
+    }
+    display();
+ }
+void mouse(int button, int state, int x, int y){
+    switch (button){
+        case GLUT_LEFT_BUTTON:
+            if (state == GLUT_DOWN){
+                Mousebtn = 0;
+                glutIdleFunc(XspinDisplay);
+            }
+            break;
+        case GLUT_MIDDLE_BUTTON:
+            if (state == GLUT_DOWN){
+                Mousebtn = 1;
+                glutIdleFunc(YspinDisplay);
+            }
+            break;
+        case GLUT_RIGHT_BUTTON:
+            if (state == GLUT_DOWN){
+                Mousebtn = 2;
+                glutIdleFunc(ZspinDisplay);
+            }
+            break;
+        default:
+            glutIdleFunc(NULL);
+            break;
+    }
+ }
+int main(int argc, char* argv[]){
+	glutInit(&argc,argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(400,400);
+	glutInitWindowPosition(100,100);
+	glutCreateWindow("Lighting");
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
+	glutKeyboardFunc(mykey);
+    glutMouseFunc(mouse);
+	myinit();
+	glutMainLoop();
+	return 0;
+}
